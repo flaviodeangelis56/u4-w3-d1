@@ -1,0 +1,66 @@
+Estrarre il nome e il cognome dei clienti nati nel 1982
+
+SELECT nome,cognome FROM "Clienti" WHERE "data-di-nascita" = '1982-10-21'
+
+
+
+Estrarre il numero delle fatture con iva al 20%
+
+SELECT COUNT(*) FROM fatture WHERE iva = 20
+
+
+
+Riportare il numero di fatture e la somma dei relativi importi divisi per anno di fatturazione
+
+SELECT SUM(importo) FROM fatture WHERE iva = 20
+GROUP BY "data-fattura"
+
+SELECT COUNT(*) FROM fatture WHERE iva = 20
+GROUP BY "data-fattura"
+
+
+
+Estrarre i prodotti attivati nel 2017 e che sono in produzione oppure in commercio
+
+SELECT * FROM prodotti WHERE "data-attivazione" = '2017-10-21' and "in-produzione" = true or "in-commercio" = true
+
+
+
+Considerando soltanto le fatture con iva al 20 per cento, estrarre il numero di fatture per ogni anno
+
+SELECT COUNT(*) FROM fatture WHERE iva = 20
+GROUP BY "data-fattura"
+
+
+
+Estrarre gli anni in cui sono state registrate più di 2 fatture con tipologia ‘A’
+
+SELECT "data-fattura"
+FROM fatture
+WHERE tipologia = 'A'
+GROUP BY "data-fattura"
+HAVING COUNT("data-fattura") > 2
+
+
+
+Riportare l’elenco delle fatture (numero, importo, iva e data) con in aggiunta il nome del fornitore
+
+SELECT "numero-fattura",importo,iva,"data-fattura", denominazione
+FROM fatture
+JOIN fornitori ON fatture.numero_fornitore = fornitori.numero_fornitore
+
+
+
+Estrarre il totale degli importi delle fatture divisi per residenza dei clienti
+
+SELECT SUM(importo)
+FROM fatture 
+JOIN clienti ON fatture.id_cliente = clienti.numero_cliente
+GROUP BY "regione-residenza"
+
+Estrarre il numero dei clienti nati nel 1980 che hanno almeno una fattura superiore a 50 euro
+
+SELECT COUNT(*)
+FROM clienti
+JOIN fatture ON clienti.numero_cliente = fatture.id_cliente  
+WHERE clienti.data_nascita = '1989-10-21' AND importo > 50
