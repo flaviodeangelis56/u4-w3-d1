@@ -64,3 +64,10 @@ SELECT COUNT(*)
 FROM clienti
 JOIN fatture ON clienti.numero_cliente = fatture.id_cliente  
 WHERE clienti.data_nascita = '1989-10-21' AND importo > 50
+
+
+Estrarre una colonna di nome “Denominazione” contenente il nome, seguito da un carattere “-“, seguito dal cognome, per i soli clienti residenti nella regione Lombardia
+
+SELECT CONCAT(nome, '-',cognome) as Denominazione
+FROM clienti
+WHERE regione_residenza = 'lombardia'
